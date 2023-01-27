@@ -2,7 +2,7 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-name: "AppLayout",
+  name: "AppLayout",
 });
 </script>
 <script setup lang="ts">

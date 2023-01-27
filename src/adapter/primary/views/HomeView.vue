@@ -6,7 +6,7 @@ export default {
 <script setup lang="ts"></script>
 
 <template>
-  <h1 class="text-bold text-secondary">Le champ du fort</h1>
+  <h1 class="text-bold text-secondary">Welii</h1>
 </template>
 
 <style lang="sass" scoped>

@@ -66,9 +66,12 @@ const store: Store<State> = createStore({
           return Promise.reject(e);
         });
     },
-    loadMoreApps({ commit, state: { appPagination } }) {
+    loadMoreApps({ commit, state: { appSearchParam, appPagination } }) {
       return appUseCase
-        .getApps(appPagination.page + 1)
+        .getApps(
+          appPagination.page + 1,
+          appSearchParam ? appSearchParam : undefined
+        )
         .then((appPagination: AppPagination) => {
           commit("setApps", appPagination);
           return Promise.resolve(appPagination.nbHits > 0);

@@ -1,8 +1,9 @@
-import App from "@/adapter/secondary/agolia/AppDTO";
+import App, { AppPagination } from "@/adapter/secondary/agolia/AppDTO";
 import algoliasearch, { SearchClient, SearchIndex } from "algoliasearch";
+import { Hit, SearchResponse } from "@algolia/client-search";
 
 export interface AppRepository {
-  getApps(): Promise<App[]>;
+  getApps(): Promise<AppPagination>;
 }
 
 export class AppAlgoliaRepository implements AppRepository {
@@ -15,12 +16,19 @@ export class AppAlgoliaRepository implements AppRepository {
     );
     this.index = this.client.initIndex("apps");
   }
-  async getApps(): Promise<App[]> {
+  async getApps(): Promise<AppPagination> {
     try {
-      const searchResponse = await this.index.search("test");
+      const searchResponse: SearchResponse<App[]> = await this.index.search(
+        "test"
+      );
       console.error("searchResponse", searchResponse);
-      const appsFromAlgolia = searchResponse.hits as App[];
-      return Promise.resolve(appsFromAlgolia);
+      const appPagination: AppPagination = {
+        nbHits: searchResponse.nbHits,
+        nbPages: searchResponse.nbPages,
+        page: searchResponse.page,
+        apps: <Array<Hit<App>>>(<unknown>searchResponse.hits),
+      };
+      return Promise.resolve(appPagination);
     } catch (e) {
       console.error(e);
       return Promise.reject(e);

@@ -34,3 +34,10 @@ export interface Alternative {
   usersCount: number;
   currentRollingYearExpenses: number;
 }
+
+export interface AppPagination {
+  nbHits: number;
+  nbPages: number;
+  page: number;
+  apps: App[];
+}

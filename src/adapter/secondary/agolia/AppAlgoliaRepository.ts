@@ -8,8 +8,8 @@ export class AppAlgoliaRepository implements AppRepository {
   private index: SearchIndex;
   constructor() {
     this.client = algoliasearch(
-      "L92M1S2IT5",
-      "cfe5d8055f78d1088e2f5b7cca2dfd05"
+      import.meta.env.VITE_ALGOLIA_APP_ID,
+      import.meta.env.VITE_ALGOLIA_API_KEY
     );
     this.index = this.client.initIndex("apps");
   }

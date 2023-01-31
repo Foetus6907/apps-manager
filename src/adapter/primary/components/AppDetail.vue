@@ -30,8 +30,7 @@ getUserByAppExternalId(selectedAppExternalId.value);
         id="logo"
         :src="currentApp?.logo"
         :alt="currentApp?.name"
-        :ratio="1"
-        style="width: 120px; height: 120px"
+        style="width: 100%"
       />
     </q-card-section>
     <q-card-section class="justify-center flex q-my-sm q-py-none">

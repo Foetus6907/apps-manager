@@ -1,5 +1,5 @@
 import { AppPagination } from "@/adapter/secondary/agolia/AppDTO";
-import { AppRepository } from "@/adapter/secondary/agolia/AppAlgoliaRepository";
+import { AppRepository } from "@/port/AppRepository";
 
 export class AppUseCase {
   constructor(private readonly appRepository: AppRepository) {}

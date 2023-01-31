@@ -1,10 +1,7 @@
 import App, { AppPagination } from "@/adapter/secondary/agolia/AppDTO";
 import algoliasearch, { SearchClient, SearchIndex } from "algoliasearch";
 import { Hit, SearchResponse } from "@algolia/client-search";
-
-export interface AppRepository {
-  getApps(nextPage?: number): Promise<AppPagination>;
-}
+import { AppRepository } from "@/port/AppRepository";
 
 export class AppAlgoliaRepository implements AppRepository {
   private client: SearchClient;

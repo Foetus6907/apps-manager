@@ -1,8 +1,5 @@
 import { UserPagination } from "@/adapter/secondary/api/UserDTO";
-
-export interface UserRepository {
-  getUserByAppExternalId(appExternalId: string): Promise<UserPagination>;
-}
+import { UserRepository } from "@/port/UserRepository";
 
 export class UserApiRepository implements UserRepository {
   async getUserByAppExternalId(appExternalId: string): Promise<UserPagination> {

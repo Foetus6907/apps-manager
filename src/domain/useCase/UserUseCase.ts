@@ -1,5 +1,5 @@
 import { UserPagination } from "@/adapter/secondary/api/UserDTO";
-import { UserRepository } from "@/adapter/secondary/api/UserApiRepository";
+import { UserRepository } from "@/port/UserRepository";
 
 export class UserUseCase {
   constructor(private readonly userRepository: UserRepository) {}

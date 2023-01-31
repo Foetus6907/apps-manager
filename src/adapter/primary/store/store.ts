@@ -36,6 +36,14 @@ const store: Store<State> = createStore({
         apps: [...state.appPagination.apps, ...appPagination.apps],
       };
     },
+    resetAppPagination(state) {
+      state.appPagination = {
+        nbHits: 0,
+        nbPages: 0,
+        page: 0,
+        apps: [],
+      };
+    },
     setUserPagination(state, userPagination: UserPagination) {
       state.userPagination = userPagination;
     },
@@ -80,11 +88,12 @@ const store: Store<State> = createStore({
           return Promise.reject(e);
         });
     },
-    searchApp({ commit }, searchAppParam: string) {
+    async searchApp({ commit }, searchAppParam: string) {
+      await commit("setSearchAppParam", searchAppParam);
+      await commit("resetAppPagination");
       return appUseCase
         .getApps(0, searchAppParam)
         .then(async (appPagination) => {
-          await commit("setSearchAppParam", searchAppParam);
           commit("setApps", appPagination);
           return Promise.resolve(appPagination.nbHits > 0);
         })

@@ -14,10 +14,17 @@ import {
   isDisplayingErrorGetApps,
 } from "@/adapter/primary/components/AppListUiLogic";
 import { ref } from "vue";
+import { useStore } from "vuex";
 
 const scrollTargetRef = ref(null);
 
 getApps();
+
+const appSearchParam = ref("");
+const store = useStore();
+const getfilteredApps = () => {
+  store.dispatch("searchApp", appSearchParam.value);
+};
 </script>
 
 <template>
@@ -27,6 +34,15 @@ getApps();
     bordered
     class="col q-mr-sm overflow-auto"
   >
+    <q-input
+      v-model="appSearchParam"
+      outlined
+      dense
+      debounce="300"
+      placeholder="Rechercher une application"
+      class="q-mb-md"
+      @change="getfilteredApps"
+    />
     <q-list bordered separator class="text-center">
       <q-infinite-scroll
         @load="onLoadMoreApps"

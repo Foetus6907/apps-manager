@@ -30,7 +30,7 @@ getApps();
     <q-list bordered separator class="text-center">
       <q-infinite-scroll
         @load="onLoadMoreApps"
-        :offset="250"
+        :offset="300"
         :scroll-target="scrollTargetRef"
       >
         <q-item>

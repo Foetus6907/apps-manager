@@ -27,7 +27,12 @@ const store: Store<State> = createStore({
   },
   mutations: {
     setApps(state, appPagination: AppPagination) {
-      state.appPagination = appPagination;
+      state.appPagination = {
+        nbHits: appPagination.nbHits,
+        nbPages: appPagination.nbPages,
+        page: appPagination.page,
+        apps: [...state.appPagination.apps, ...appPagination.apps],
+      };
     },
     setUserPagination(state, userPagination: UserPagination) {
       state.userPagination = userPagination;
@@ -42,6 +47,17 @@ const store: Store<State> = createStore({
           return Promise.resolve(appPagination.nbHits > 0);
         })
         .catch((e) => {
+          return Promise.reject(e);
+        });
+    },
+    loadMoreApps({ commit, state: { appPagination } }) {
+      return appUseCase
+        .getApps(appPagination.page + 1)
+        .then((appPagination: AppPagination) => {
+          commit("setApps", appPagination);
+          return Promise.resolve(appPagination.nbHits > 0);
+        })
+        .catch((e: any) => {
           return Promise.reject(e);
         });
     },

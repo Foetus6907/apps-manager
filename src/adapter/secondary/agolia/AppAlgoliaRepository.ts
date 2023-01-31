@@ -3,7 +3,7 @@ import algoliasearch, { SearchClient, SearchIndex } from "algoliasearch";
 import { Hit, SearchResponse } from "@algolia/client-search";
 
 export interface AppRepository {
-  getApps(): Promise<AppPagination>;
+  getApps(nextPage?: number): Promise<AppPagination>;
 }
 
 export class AppAlgoliaRepository implements AppRepository {
@@ -16,12 +16,15 @@ export class AppAlgoliaRepository implements AppRepository {
     );
     this.index = this.client.initIndex("apps");
   }
-  async getApps(): Promise<AppPagination> {
+  async getApps(nextPage?: number): Promise<AppPagination> {
     try {
       const searchResponse: SearchResponse<App[]> = await this.index.search(
-        "test"
+        "",
+        {
+          page: nextPage ? nextPage : 0,
+        }
       );
-      console.error("searchResponse", searchResponse);
+      console.log("searchResponse", searchResponse);
       const appPagination: AppPagination = {
         nbHits: searchResponse.nbHits,
         nbPages: searchResponse.nbPages,

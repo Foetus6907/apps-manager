@@ -17,6 +17,15 @@ import "@quasar/extras/material-icons/material-icons.css";
 
 // Import Quasar css
 import "quasar/src/css/index.sass";
+import { UserUseCase } from "@/domain/useCase/UserUseCase";
+import { UserApiRepository } from "@/adapter/secondary/api/UserApiRepository";
+import { AppAlgoliaRepository } from "@/adapter/secondary/agolia/AppAlgoliaRepository";
+import { AppUseCase } from "@/domain/useCase/AppUseCase";
+
+const userRepository = new UserApiRepository();
+const appRepository = new AppAlgoliaRepository();
+export const userUseCase = new UserUseCase(userRepository);
+export const appUseCase = new AppUseCase(appRepository);
 
 const app = createApp(App);
 app.use(i18n);

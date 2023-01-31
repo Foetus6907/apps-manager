@@ -22,7 +22,7 @@ getUserByAppExternalId(selectedAppExternalId.value);
   <q-card
     v-if="selectedAppExternalId && currentApp"
     bordered
-    class="col-3 overflow-auto"
+    class="col-3 overflow-auto text-center"
     style="max-height: 93vh; overflow: auto"
   >
     <q-card-section class="justify-center flex q-my-sm q-py-none">
@@ -30,11 +30,11 @@ getUserByAppExternalId(selectedAppExternalId.value);
         id="logo"
         :src="currentApp?.logo"
         :alt="currentApp?.name"
-        style="width: 100%"
+        style="width: 100%; max-width: 175px; max-height: 175px"
       />
     </q-card-section>
     <q-card-section class="justify-center flex q-my-sm q-py-none">
-      <q-item-label class="text-bold text-h4">
+      <q-item-label class="text-bold text-h4 text-center">
         {{ currentApp?.name }}
       </q-item-label>
     </q-card-section>

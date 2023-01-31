@@ -56,8 +56,7 @@ getApps();
                 id="logo"
                 :src="app.logo"
                 :alt="app.name"
-                :ratio="1"
-                style="width: 50px; height: 50px"
+                style="width: 100%; max-width: 150px; max-height: 150px"
               />
             </q-item-section>
             <q-item-section>

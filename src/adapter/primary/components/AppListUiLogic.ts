@@ -39,7 +39,7 @@ export const displayErrorGetApps = (e: boolean) => {
 };
 
 export const hasMoreAppsToLoad = computed(
-  () => appPagination.value.nbPages > appPagination.value.page + 1
+  () => appPagination.value.nbPages >= appPagination.value.page + 1
 );
 const isLoadingMore = ref(false);
 export const loadMore = () => {

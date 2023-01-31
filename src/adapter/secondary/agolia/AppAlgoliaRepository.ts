@@ -13,10 +13,13 @@ export class AppAlgoliaRepository implements AppRepository {
     );
     this.index = this.client.initIndex("apps");
   }
-  async getApps(nextPage?: number): Promise<AppPagination> {
+  async getApps(
+    nextPage?: number,
+    searchAppParam?: string
+  ): Promise<AppPagination> {
     try {
       const searchResponse: SearchResponse<App[]> = await this.index.search(
-        "",
+        searchAppParam ? searchAppParam : "",
         {
           page: nextPage ? nextPage : 0,
         }

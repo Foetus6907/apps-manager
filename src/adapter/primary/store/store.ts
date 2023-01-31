@@ -6,6 +6,7 @@ import App, { AppPagination } from "@/adapter/secondary/agolia/AppDTO";
 interface State {
   userPagination: UserPagination;
   appPagination: AppPagination;
+  appSearchParam: string | undefined;
 }
 
 const store: Store<State> = createStore({
@@ -23,6 +24,7 @@ const store: Store<State> = createStore({
         page: 0,
         users: [],
       },
+      appSearchParam: undefined,
     } as State;
   },
   mutations: {
@@ -37,11 +39,17 @@ const store: Store<State> = createStore({
     setUserPagination(state, userPagination: UserPagination) {
       state.userPagination = userPagination;
     },
+    setSearchAppParam(state, searchAppParam: string) {
+      state.appSearchParam = searchAppParam;
+    },
   },
   actions: {
-    getApps({ commit }) {
+    getApps({ commit, state: { appSearchParam, appPagination } }) {
       return appUseCase
-        .getApps()
+        .getApps(
+          appPagination.page,
+          appSearchParam ? appSearchParam : undefined
+        )
         .then((appPagination) => {
           commit("setApps", appPagination);
           return Promise.resolve(appPagination.nbHits > 0);
@@ -67,6 +75,18 @@ const store: Store<State> = createStore({
         .then((usersPagination) => {
           commit("setUserPagination", usersPagination);
           return Promise.resolve(usersPagination.users.length > 0);
+        })
+        .catch((e) => {
+          return Promise.reject(e);
+        });
+    },
+    searchApp({ commit }, searchAppParam: string) {
+      return appUseCase
+        .getApps(0, searchAppParam)
+        .then(async (appPagination) => {
+          await commit("setSearchAppParam", searchAppParam);
+          commit("setApps", appPagination);
+          return Promise.resolve(appPagination.nbHits > 0);
         })
         .catch((e) => {
           return Promise.reject(e);

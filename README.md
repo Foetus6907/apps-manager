@@ -73,7 +73,7 @@ Since TypeScript cannot handle type information for `.vue` imports, they are shi
 |   |   |  |    └── InMemoryRepository
 │   ├── domain
 │   |   ├── useCase
-|   |   |   ├── UseCase.ts
+|   |   |   ├── UserUseCase.ts
 ├── shims-vue.d.ts
 ├── tsconfig.json
 ├── vite.config.ts
